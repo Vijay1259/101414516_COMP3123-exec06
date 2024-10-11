@@ -1,10 +1,6 @@
-// NoteRoutes.js
-
 const express = require('express');
 const router = express.Router();
-const Note = require('../models/NotesModel');  // Ensure this path is correct
-
-// Create a new Note
+const Note = require('../models/NotesModel'); 
 router.post('/', (req, res) => {
     if (!req.body.noteTitle || !req.body.noteDescription) {
         return res.status(400).send({
@@ -15,7 +11,7 @@ router.post('/', (req, res) => {
     const note = new Note({
         noteTitle: req.body.noteTitle,
         noteDescription: req.body.noteDescription,
-        priority: req.body.priority || 'LOW'  // Default priority is LOW if not provided
+        priority: req.body.priority || 'LOW'
     });
 
     note.save()
@@ -62,8 +58,6 @@ router.get('/:noteId', (req, res) => {
             });
         });
 });
-
-// Update a Note by ID
 router.put('/:noteId', (req, res) => {
     if (!req.body.noteTitle || !req.body.noteDescription) {
         return res.status(400).send({
@@ -95,8 +89,6 @@ router.put('/:noteId', (req, res) => {
         });
     });
 });
-
-// Delete a Note by ID
 router.delete('/:noteId', (req, res) => {
     Note.findByIdAndRemove(req.params.noteId)
         .then(note => {

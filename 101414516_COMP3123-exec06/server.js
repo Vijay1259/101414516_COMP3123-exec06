@@ -1,5 +1,3 @@
-// server.js
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -26,20 +24,15 @@ mongoose.connect(uri, {
     process.exit();
 });
 
-// Use the notes routes
-app.use('/api/v1/notes', notesRoute);  // Add this line to use the NoteRoutes
+app.use('/api/v1/notes', notesRoute);  
 
-// Default route
 app.get('/', (req, res) => {
     res.send("<h1>Welcome to Note-taking application - Week06 Exercise</h1>");
 });
 
-// Catch 404 errors (invalid routes)
 app.use((req, res, next) => {
     res.status(404).send({ message: "Resource not found" });
 });
-
-// Start the server
 const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {
     console.log("Server is listening on port " + PORT);
